@@ -5,7 +5,7 @@ import LoginComponent from '../components/authentication/Login'
 function Login() {
   return (
     <div>
-        <Navbar/>
+        {/* <Navbar/>  */}
         <LoginComponent/>
     </div>
   )
