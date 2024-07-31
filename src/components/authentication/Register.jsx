@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import DarkModeToggle from "../DarkModeToggle";
-import Logo from '../../assets/Logo/AltosLogo.png'
-import LoginBackground from '../../assets/LoginBg.jpg'
-
 import { Link, useNavigate } from "react-router-dom";
 
 
 
-const Login = ({login}) => {
+const Register = () => {
   
   const navigate = useNavigate()
 
@@ -58,8 +55,10 @@ const Login = ({login}) => {
                   <div className="md:mx-5 md:p-12">
                     {/* Logo */}
                     <div className="text-center">
-                      <img className="mx-auto w-48" src={Logo}  alt="logo" />
-                    
+                      <img className="mx-auto w-48"  alt="logo" />
+                      <h4 className=" mt-1 pb-1 text-xl font-semibold">
+                        Stay healthy
+                      </h4>
                     </div>
 
                       <p className="mb-4 text-center text-neutral-800 dark:text-neutral-200">
@@ -133,7 +132,7 @@ const Login = ({login}) => {
                 <div
                   className="hidden lg:flex items-center rounded-b-lg lg:w-6/12 lg:rounded-r-lg lg:rounded-bl-none"
                   style={{
-                    backgroundImage: `url(${LoginBackground})`,
+                    // backgroundImage: `url(${LoginImg})`,
                     backgroundSize: "cover",
                   }}
                 >
@@ -158,4 +157,4 @@ const Login = ({login}) => {
   );
 };
 
-export default Login;
+export default Register;
