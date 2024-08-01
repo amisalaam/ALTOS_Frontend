@@ -1,23 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DarkModeToggle from "../DarkModeToggle";
-import { Link, useNavigate } from "react-router-dom";
-import Logo from '../../assets/Logo/AltosLogo.png'
-import LoginBackground from '../../assets/LoginBg.jpg'
-import axios from 'axios'
-
-
-
+import { Link } from "react-router-dom";
+import Logo from '../../assets/Logo/AltosLogo.png';
+import LoginBackground from '../../assets/LoginBg.jpg';
+import axios from 'axios';
+import OtpModal from "../modal/OtpModal";
 
 const Register = () => {
-
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
+    const [showOtpModal, setShowOtpModal] = useState(false);
     const apiUrl = import.meta.env.VITE_API_URL;
 
-    
     const handleRegister = async (e) => {
         e.preventDefault();
         if (password !== confirmPassword) {
@@ -26,25 +23,28 @@ const Register = () => {
         }
         try {
             const response = await axios.post(`${apiUrl}/api/register/`, {
-                fullName,
+                name: fullName,
                 email,
                 password
             });
             console.log(response);
-            if (response.status === 200) {
-                window.location.href = "/";
+            if (response.status === 201) {
+                handleRegistrationSuccess();
             }
         } catch (error) {
             console.error(error);
         }
     };
 
+    const handleRegistrationSuccess = () => {
+        setShowOtpModal(true);
+    };
 
-
-
+    const handleCloseOtpModal = () => {
+        setShowOtpModal(false);
+    };
 
     return (
-
         <div className="gradient-form  bg-neutral-100 dark:bg-neutral-700 ">
             <div className="min-h-screen flex justify-center items-center px-20 mx-auto max-w-screen-2xl ">
                 <div className="g-6 flex    text-neutral-800 dark:text-neutral-200">
@@ -65,7 +65,7 @@ const Register = () => {
                                         <p className="mb-4 text-center text-neutral-800 dark:text-neutral-200">
                                             Please Register to your account
                                         </p>
-                                        <form  onSubmit={handleRegister}>
+                                        <form onSubmit={handleRegister}>
                                             {/* Email input */}
                                             <div className="mb-4">
                                                 <input
@@ -90,7 +90,6 @@ const Register = () => {
                                                     autoComplete="off"
                                                     value={fullName}
                                                     onChange={(e) => setFullName(e.target.value)}
-
                                                     className="block w-full px-4 py-2 rounded border border-neutral-400 dark:border-neutral-600 bg-transparent focus:outline-none focus:ring focus:border-primary-500 dark:focus:border-primary-500 placeholder-neutral-500 dark:placeholder-neutral-300 text-neutral-700 dark:text-neutral-300"
                                                     placeholder="Full Name"
                                                 />
@@ -102,10 +101,7 @@ const Register = () => {
                                                     name="password"
                                                     required
                                                     value={password}
-                                                    
-
                                                     onChange={(e) => setPassword(e.target.value)}
-
                                                     type="password"
                                                     className="block w-full px-4 py-2 rounded border border-neutral-400 dark:border-neutral-600 bg-transparent focus:outline-none focus:ring focus:border-primary-500 dark:focus:border-primary-500 placeholder-neutral-500 dark:placeholder-neutral-300 text-neutral-700 dark:text-neutral-300"
                                                     placeholder="Password"
@@ -116,10 +112,8 @@ const Register = () => {
                                                 <input
                                                     name="confirmPassword"
                                                     value={confirmPassword}
-                                                    required    
-
+                                                    required
                                                     onChange={(e) => setConfirmPassword(e.target.value)}
-
                                                     type="password"
                                                     className="block w-full px-4 py-2 rounded border border-neutral-400 dark:border-neutral-600 bg-transparent focus:outline-none focus:ring focus:border-primary-500 dark:focus:border-primary-500 placeholder-neutral-500 dark:placeholder-neutral-300 text-neutral-700 dark:text-neutral-300"
                                                     placeholder="Confirm Password"
@@ -133,8 +127,6 @@ const Register = () => {
                                                 </button>
                                             </div>
                                         </form>
-
-
 
                                         {/* Register button */}
                                         <div className="flex items-center justify-between">
@@ -177,6 +169,11 @@ const Register = () => {
                     </div>
                 </div>
             </div>
+            <OtpModal
+                show={showOtpModal}
+                handleClose={handleCloseOtpModal}
+                email={email} // Pass the email to the OtpModal component
+            />
         </div>
     );
 };
