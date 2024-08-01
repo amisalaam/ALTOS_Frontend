@@ -6,7 +6,7 @@ import axios from 'axios';
 function EventDetails() {
   const { id } = useParams();
   const [event, setEvent] = useState({});
-  const { authTokens } = useAuth();
+  const { authTokens } = useAuth(); 
   const [message, setMessage] = useState('');
   const apiUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate(); // Hook for navigation
