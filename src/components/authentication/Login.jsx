@@ -2,39 +2,46 @@ import React, { useEffect, useState } from "react";
 import DarkModeToggle from "../DarkModeToggle";
 import Logo from '../../assets/Logo/AltosLogo.png'
 import LoginBackground from '../../assets/LoginBg.jpg'
+import { Link } from "react-router-dom";
+import { useAuth } from "../../context/authContext/AuthProvider";
+import axios from 'axios';
 
-import { Link, useNavigate } from "react-router-dom";
 
 
-
-const Login = ({login}) => {
+const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const {login} = useAuth();
   
-  const navigate = useNavigate()
 
-  const [formData,setFormData] = useState({
-    email : "",
-    password : ""
-  })
 
-  const {email,password} = formData;
-
-  const onChange = (e) => 
-    setFormData({...formData,[e.target.name]:e.target.value })
-
-  
-    const onSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        const response = await login(email, password);
-        console.log(response)
-        if (response.status ==200){
-          navigate('/')
-        }
-        
-      } catch (error) {
-        console.error("Login failed:", error);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`${apiUrl}/api/login/`, {
+        email,
+        password
+      });
+      console.log(response);
+      if (response.status === 200) {
+        login({
+          access: response.data.access,
+          refresh: response.data.refresh,
+          user: response.data.user,
+        });
+        window.location.href = "/";
       }
-    };
+    } catch (error) {
+      console.error(error);
+      if (error.response && error.response.data) {
+        setError(error.response.data.error);
+      } else {
+        setError("An error occurred during login.");
+      }
+    }
+  };
 
 
 
@@ -43,7 +50,7 @@ const Login = ({login}) => {
   return (
 
     <div className="gradient-form  bg-neutral-300 dark:bg-neutral-700 ">
-       
+
       <div className="min-h-screen flex justify-center items-center px-20 mx-auto max-w-screen-2xl ">
         <div className="g-6 flex    text-neutral-800 dark:text-neutral-200">
           <div className="w-full">
@@ -53,29 +60,31 @@ const Login = ({login}) => {
                 <div className="px-4 md:px-0 lg:w-6/12">
                   {/* DARK MODE BUTTON */}
                   <DarkModeToggle />
-                
+
 
                   <div className="md:mx-5 md:p-12">
                     {/* Logo */}
                     <div className="text-center">
-                      <img className="mx-auto w-48" src={Logo}  alt="logo" />
-                    
+                      <img className="mx-auto w-48" src={Logo} alt="logo" />
+
                     </div>
 
-                      <p className="mb-4 text-center text-neutral-800 dark:text-neutral-200">
-                        Please login to your account
-                      </p>
-                    <form onSubmit={onSubmit}>
-                      {/* Username input */}
+                    <p className="mb-4 text-center text-neutral-800 dark:text-neutral-200">
+                      Please login to your account
+                    </p>
+                    <form onSubmit={handleLogin}>
+                      {/* Email input */}
                       <div className="mb-4">
                         <input
                           type="email"
                           value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+
                           name="email"
-                         autoComplete="off" 
+                          autoComplete="off"
 
                           required
-                          onChange={(e) => onChange(e)}
+
                           className="block w-full px-4 py-2 rounded border border-neutral-400 dark:border-neutral-600 bg-transparent focus:outline-none focus:ring focus:border-primary-500 dark:focus:border-primary-500 placeholder-neutral-500 dark:placeholder-neutral-300 text-neutral-700 dark:text-neutral-300"
                           id="exampleFormControlInput1"
                           placeholder="Email"
@@ -85,10 +94,12 @@ const Login = ({login}) => {
                       {/* Password input */}
                       <div className="mb-4">
                         <input
-                         name="password"
-                         value={password}
-                         autoComplete="off" 
-                         onChange={(e) => onChange(e)}
+                          name="password"
+                          value={password}
+                          required
+                          onChange={(e) => setPassword(e.target.value)}
+
+                          autoComplete="off"
                           type="password"
                           className="block w-full px-4 py-2 rounded border border-neutral-400 dark:border-neutral-600 bg-transparent focus:outline-none focus:ring focus:border-primary-500 dark:focus:border-primary-500 placeholder-neutral-500 dark:placeholder-neutral-300 text-neutral-700 dark:text-neutral-300"
                           placeholder="Password"
@@ -101,31 +112,24 @@ const Login = ({login}) => {
                           Log In
                         </button>
                       </div>
-                      </form>
+                    </form>
 
-                      {/* Forgot password link */}
-                      <div className="text-center mb-4">
-                        <a
-                          href="#!"
-                          className="text-primary-500 hover:underline"
-                        >
-                          Forgot password?
-                        </a>
-                      </div>
 
-                      {/* Register button */}
-                      <div className="flex items-center justify-between">
-                        <p className="text-neutral-800 dark:text-neutral-200">
-                          Don't have an account?
-                        </p>
-                        <Link
-                          to='/register'
-                          className="px-4 py-2 bg-transparent border border-danger text-danger-600 rounded hover:bg-danger-100 hover:text-danger-700 focus:outline-none focus:border-danger-600 focus:text-danger-600 dark:border-danger-400 dark:hover:bg-danger-100 dark:hover:text-danger-700 dark:focus:border-danger-400 dark:focus:text-danger-600"
-                        >
-                          Register
-                        </Link>
-                      </div>
-                    
+
+
+                    {/* Register button */}
+                    <div className="flex items-center justify-between">
+                      <p className="text-neutral-800 dark:text-neutral-200">
+                        Don't have an account?
+                      </p>
+                      <Link
+                        to='/register'
+                        className="px-4 py-2 bg-transparent border border-danger text-danger-600 rounded hover:bg-danger-100 hover:text-danger-700 focus:outline-none focus:border-danger-600 focus:text-danger-600 dark:border-danger-400 dark:hover:bg-danger-100 dark:hover:text-danger-700 dark:focus:border-danger-400 dark:focus:text-danger-600"
+                      >
+                        Register
+                      </Link>
+                    </div>
+
                   </div>
                 </div>
 
