@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import { useAuth } from '../context/authContext/AuthProvider';
+import EventList from '../components/events/EventList';
 
 function Home() {
   const { authTokens } = useAuth();
@@ -20,6 +21,7 @@ function Home() {
       ) : (
         <p>Please log in to see your information.</p>
       )}
+      <EventList/>
     </div>
   );
 }

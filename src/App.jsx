@@ -6,6 +6,9 @@ import Home from './pages/Home';
 import PageNotFound from './components/PageNotFound';
 import PrivateRoute from './routes/PrivateRoutes';
 import PublicRoute from './routes/PublicRoutes';
+import EventList from './components/events/EventList';
+import EventForm from './components/events/EventForm';
+import EventDetails from './components/events/EventDetails';
 function App() {
   return (
       <Router>
@@ -24,6 +27,11 @@ function App() {
           />
           <Route path="*" element={<PageNotFound />} />
           <Route path='/admin/dashboard' element={<PrivateRoute element={<Dashboard />} />} />
+          <Route path='/events' element={<PrivateRoute element={<EventList />} />} />
+          <Route path='/event/create' element={<PrivateRoute element={<EventForm />} />} />
+          <Route path='/event/:id' element={<PrivateRoute element={<EventDetails />} />} />
+          <Route path='/event/edit/:id' element={<PrivateRoute element={<EventForm />} />} />
+          
         </Routes>
       </Router>
   );

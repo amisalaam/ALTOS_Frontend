@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-const events = [
-  { id: 1, title: 'Tech Conference', date: '2024-08-20', location: 'New York' },
-  { id: 2, title: 'Music Festival', date: '2024-09-15', location: 'Los Angeles' },
-  // Add more events here
-];
+
 
 function EventList() {
+    const [events, setEvents] = useState([]);
+    const apiUrl = import.meta.env.VITE_API_URL;
+
+    useEffect(() => {
+        const fetchEvents = async () => {
+          try {
+            const response = await axios.get(`${apiUrl}/api/events/`);
+            setEvents(response.data);
+            console.log(response.data);
+          } catch (error) {
+            console.error(error);
+          }
+        };
+        fetchEvents();
+      }, []);
+
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold mb-6">Upcoming Events</h1>
@@ -16,12 +30,12 @@ function EventList() {
             <h2 className="text-xl font-semibold mb-2">{event.title}</h2>
             <p className="text-gray-600">Date: {event.date}</p>
             <p className="text-gray-600">Location: {event.location}</p>
-            <a
-              href={`/events/${event.id}`}
+            <Link
+              to={`/event/${event.id}`}
               className="mt-4 block text-blue-500 hover:underline"
             >
               View Details
-            </a>
+            </Link>
           </div>
         ))}
       </div>
