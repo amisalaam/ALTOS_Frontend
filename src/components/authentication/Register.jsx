@@ -55,7 +55,6 @@ const Register = () => {
                                 <div className="px-4 md:px-0 lg:w-6/12">
                                     {/* DARK MODE BUTTON */}
                                     <DarkModeToggle />
-
                                     <div className="md:mx-5 md:p-12">
                                         {/* Logo */}
                                         <div className="text-center">

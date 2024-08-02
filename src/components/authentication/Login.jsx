@@ -13,8 +13,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const apiUrl = import.meta.env.VITE_API_URL;
-  const {login} = useAuth();
-  
+  const { login } = useAuth();
+
 
 
   const handleLogin = async (e) => {
@@ -45,8 +45,6 @@ const Login = () => {
 
 
 
-
-
   return (
 
     <div className="gradient-form  bg-neutral-300 dark:bg-neutral-700 ">
@@ -60,15 +58,11 @@ const Login = () => {
                 <div className="px-4 md:px-0 lg:w-6/12">
                   {/* DARK MODE BUTTON */}
                   <DarkModeToggle />
-
-
                   <div className="md:mx-5 md:p-12">
                     {/* Logo */}
                     <div className="text-center">
                       <img className="mx-auto w-48" src={Logo} alt="logo" />
-
                     </div>
-
                     <p className="mb-4 text-center text-neutral-800 dark:text-neutral-200">
                       Please login to your account
                     </p>
@@ -79,12 +73,9 @@ const Login = () => {
                           type="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-
                           name="email"
                           autoComplete="off"
-
                           required
-
                           className="block w-full px-4 py-2 rounded border border-neutral-400 dark:border-neutral-600 bg-transparent focus:outline-none focus:ring focus:border-primary-500 dark:focus:border-primary-500 placeholder-neutral-500 dark:placeholder-neutral-300 text-neutral-700 dark:text-neutral-300"
                           id="exampleFormControlInput1"
                           placeholder="Email"
@@ -98,7 +89,6 @@ const Login = () => {
                           value={password}
                           required
                           onChange={(e) => setPassword(e.target.value)}
-
                           autoComplete="off"
                           type="password"
                           className="block w-full px-4 py-2 rounded border border-neutral-400 dark:border-neutral-600 bg-transparent focus:outline-none focus:ring focus:border-primary-500 dark:focus:border-primary-500 placeholder-neutral-500 dark:placeholder-neutral-300 text-neutral-700 dark:text-neutral-300"
@@ -108,14 +98,11 @@ const Login = () => {
 
                       {/* Submit button */}
                       <div className="mb-6 text-center">
-                        <button type="submit" className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-10 rounded-full shadow-md transition-transform transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-300">
+                        <button type="submit" className="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white font-semibold py-3 px-10 rounded-full shadow-md transition-transform transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-300">
                           Log In
                         </button>
                       </div>
                     </form>
-
-
-
 
                     {/* Register button */}
                     <div className="flex items-center justify-between">
@@ -129,7 +116,6 @@ const Login = () => {
                         Register
                       </Link>
                     </div>
-
                   </div>
                 </div>
 
@@ -141,8 +127,8 @@ const Login = () => {
                     backgroundSize: "cover",
                   }}
                 >
-                  <div className="px-4 py-6 text-white md:mx-6 md:p-12">
-                    <h4 className="mb-6 text-xl font-semibold">
+                  <div className="px-4 py-20 text-white md:mx-6 md:p-12">
+                    <h4 className="mb-12 text-xl font-semibold">
                       We are more than just a company
                     </h4>
                     <p className="text-sm">

@@ -35,7 +35,7 @@ function EventDetails() {
           setMessage('Successfully registered!');
         } else {
           console.error(response.data);
-          setMessage(response.data.detail || 'An error occurred.' || response.data.non_field_errors);
+          setMessage(response.data.detail || 'An error occurred.');
         }
       } catch (error) {
         console.error(error);
@@ -60,10 +60,10 @@ function EventDetails() {
   };
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <div className="bg-white p-6 rounded-lg shadow-lg">
+    <div className="p-6 bg-gray-100 min-h-screen flex justify-center items-center">
+      <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
         <h1 className="text-3xl font-bold mb-4">{event.title}</h1>
-        <p className="text-gray-600 mb-2">Date: {event.date}</p>
+        <p className="text-gray-600 mb-2">Date: {new Date(event.date).toLocaleDateString()}</p>
         <p className="text-gray-600 mb-4">Location: {event.location}</p>
         <p className="text-gray-800 mb-4">{event.description}</p>
         <p className="text-gray-600 mb-4">Capacity: {event.capacity}</p>

@@ -8,7 +8,7 @@ function EventForm() {
   
   const [title, setTitle] = useState(event ? event.title : '');
   const [date, setDate] = useState(event ? event.date : '');
-  const [eventLocation, setEventLocation] = useState(event ? event.location : ''); // Renamed
+  const [eventLocation, setEventLocation] = useState(event ? event.location : ''); 
   const [capacity, setCapacity] = useState(event ? event.capacity : '');
   const [description, setDescription] = useState(event ? event.description : '');
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -30,7 +30,7 @@ function EventForm() {
         await axios.put(`${apiUrl}/api/events/${event.id}/`, {
           title,
           date,
-          location: eventLocation, // Updated
+          location: eventLocation, 
           capacity,
           description,
         });
@@ -38,7 +38,7 @@ function EventForm() {
         await axios.post(`${apiUrl}/api/events/`, {
           title,
           date,
-          location: eventLocation, // Updated
+          location: eventLocation, 
           capacity,
           description,
         });
@@ -49,63 +49,65 @@ function EventForm() {
   };
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <div className="bg-white p-6 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold mb-4">{event ? 'Edit Event' : 'Create Event'}</h1>
-        <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="p-6 bg-gray-100 min-h-screen flex items-center justify-center">
+      <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full">
+        <h1 className="text-3xl font-bold mb-6 text-center">
+          {event ? 'Edit Event' : 'Create Event'}
+        </h1>
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-gray-700">Title</label>
+            <label className="block text-gray-700 font-medium">Title</label>
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
+              className="mt-1 block w-full border border-gray-300 rounded-lg p-3 text-gray-800"
               required
             />
           </div>
           <div>
-            <label className="block text-gray-700">Date</label>
+            <label className="block text-gray-700 font-medium">Date</label>
             <input
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
+              className="mt-1 block w-full border border-gray-300 rounded-lg p-3 text-gray-800"
               required
             />
           </div>
           <div>
-            <label className="block text-gray-700">Location</label>
+            <label className="block text-gray-700 font-medium">Location</label>
             <input
               type="text"
-              value={eventLocation} // Updated
-              onChange={(e) => setEventLocation(e.target.value)} // Updated
-              className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
+              value={eventLocation} 
+              onChange={(e) => setEventLocation(e.target.value)} 
+              className="mt-1 block w-full border border-gray-300 rounded-lg p-3 text-gray-800"
               required
             />
           </div>
           <div>
-            <label className="block text-gray-700">Capacity</label>
+            <label className="block text-gray-700 font-medium">Capacity</label>
             <input
               type="number"
               value={capacity}
               onChange={(e) => setCapacity(e.target.value)}
-              className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
+              className="mt-1 block w-full border border-gray-300 rounded-lg p-3 text-gray-800"
               required
             />
           </div>
           <div>
-            <label className="block text-gray-700">Description</label>
+            <label className="block text-gray-700 font-medium">Description</label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="mt-1 block w-full border border-gray-300 rounded-lg p-2"
-              rows="4"
+              className="mt-1 block w-full border border-gray-300 rounded-lg p-3 text-gray-800"
+              rows="5"
               required
             />
           </div>
           <button
             type="submit"
-            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+            className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
             {event ? 'Save Changes' : 'Create Event'}
           </button>
