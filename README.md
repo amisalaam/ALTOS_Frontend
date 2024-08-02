@@ -1,5 +1,5 @@
 
-# Event Management Frontend
+# ALTOS Event Management Frontend
 
 This is the frontend for the Event Management System, built with React, Vite, and Tailwind CSS. The application allows users to view, register, and manage events.
 
@@ -16,8 +16,8 @@ Follow these steps to set up the project on your local machine:
 
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/yourusername/event-management-frontend.git
-   cd event-management-frontend
+   git clone https://github.com/amisalaam/ALTOS_Frontend.git
+   cd ALTOS_Frontend
    ```
 
 2. **Install dependencies:**
@@ -84,6 +84,4 @@ event-management-frontend/
 └── ...
 ```
 
-```
 
-Replace placeholders like `yourusername` and `yourname` with your actual details. This `README.md` provides a comprehensive guide to setting up, developing, and contributing to the frontend project.
