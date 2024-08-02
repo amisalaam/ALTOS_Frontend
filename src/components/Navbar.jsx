@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../assets/Logo/AltosLogo.png';
-import { useAuth } from '../context/authContext/AuthProvider'; 
+import { useAuth } from '../context/authContext/AuthProvider';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate(); 
-  const { authTokens, logout } = useAuth(); // Get authTokens and logout function from context
+  const navigate = useNavigate();
+  const { authTokens, logout } = useAuth();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -14,7 +14,7 @@ function Navbar() {
 
   const handleLogout = () => {
     logout(); // Call logout function from context
-    navigate('/login'); // Redirect to login page after logout
+    navigate('/login');
   };
 
   return (
